@@ -1,0 +1,18 @@
+{
+  "name": "sample-package",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.ts",
+  "private": true,
+  "scripts": {
+    "test": "test",
+    "lint": "run-s -c lint:*",
+    "lint:eslint": "eslint ./**/*.{ts,tsx,js,jsx,json,md}",
+    "lint:prettier": "prettier --check ./**/*.{ts,tsx,js,jsx,json,md}",
+    "lint:tsc": "tsc --noEmit",
+    "lint-fix": "run-s -c lint-fix:*",
+    "lint-fix:eslint": "eslint ./**/*.{ts,tsx,js,jsx,json,md} --fix",
+    "lint-fix:prettier": "prettier --write ./**/*.{ts,tsx,js,jsx,json,md}"
+  },
+  "author": ""
+}

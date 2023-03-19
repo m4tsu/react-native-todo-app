@@ -1,0 +1,31 @@
+{
+  "name": "native",
+  "version": "0.1.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start --tunnel",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint": "run-s -c lint:*",
+    "lint:eslint": "eslint src/**/*.{ts,tsx,js,jsx,json,md}",
+    "lint:prettier": "prettier --check src/**/*.{ts,tsx,js,jsx,json,md}",
+    "lint:tsc": "tsc --noEmit",
+    "lint-fix": "run-s -c lint-fix:*",
+    "lint-fix:eslint": "eslint src/**/*.{ts,tsx,js,jsx,json,md} --fix",
+    "lint-fix:prettier": "prettier --write src/**/*.{ts,tsx,js,jsx,json,md}"
+  },
+  "dependencies": {
+    "expo": "~48.0.6",
+    "expo-status-bar": "~1.4.4",
+    "react": "18.2.0",
+    "react-native": "0.71.3",
+    "sample-package": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@expo/ngrok": "^4.1.0",
+    "@types/react-native": "^0.71.3"
+  },
+  "private": true
+}
