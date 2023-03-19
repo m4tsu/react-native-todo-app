@@ -1,11 +1,12 @@
 ## About
-Next.js, Expo(React Native) を含む monorepo。
+TODO管理app
 
-## Folder Structure
-- `apps`: アプリケーションをまとめたフォルダ
-  - `web`: Next.js によるWebアプリケーション
-  - `native`: Expo(React Native) によるネイティブアプリケーション
-- `packages`: 共有モジュールをまとめたフォルダ
+## Architecture, Tech Stacks
+- DB: postgresql
+- ORM: prisma
+- Auth: Next Auth
+- Backend: trpc on Next.js API Route
+- Native app: Expo (React Native)
 
 ## Setup
 - `npm i`
