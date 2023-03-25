@@ -144,7 +144,7 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
-  role: 'role',
+  subscriptionPlan: 'subscriptionPlan',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 });
@@ -154,7 +154,9 @@ exports.Prisma.VerificationTokenScalarFieldEnum = makeEnum({
   token: 'token',
   expires: 'expires'
 });
-
+exports.SubscriptionPlan = makeEnum({
+  FREE: 'FREE'
+});
 
 exports.Prisma.ModelName = makeEnum({
   Account: 'Account',

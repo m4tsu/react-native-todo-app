@@ -6,7 +6,7 @@ builder.prismaObject('User', {
   fields: (t) => ({
     id: t.exposeID('id'),
     name: t.expose('name', { type: 'String', nullable: true }),
-    role: t.exposeString('role'),
+    subscriptionPlan: t.exposeString('subscriptionPlan'),
     todos: t.relation('todos'),
   }),
 })

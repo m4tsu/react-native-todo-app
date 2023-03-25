@@ -24,6 +24,6 @@ type Todo {
 type User {
   id: ID!
   name: String
-  role: String!
+  subscriptionPlan: String!
   todos: [Todo!]!
 }

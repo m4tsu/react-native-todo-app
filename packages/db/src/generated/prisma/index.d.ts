@@ -42,16 +42,15 @@ export type Session = {
 
 /**
  * Model User
- * sqlite では enum がまだ使えないので String にしておく
  * https://github.com/huv1k/nextjs-auth-prisma/blob/master/prisma/schema.prisma
  */
 export type User = {
   id: string
-  name: string | null
+  name: string
   email: string | null
   emailVerified: Date | null
   image: string | null
-  role: string
+  subscriptionPlan: SubscriptionPlan
   createdAt: Date
   updatedAt: Date
 }
@@ -79,6 +78,20 @@ export type Todo = {
   published: boolean
   userId: string
 }
+
+
+/**
+ * Enums
+ */
+
+// Based on
+// https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
+
+export const SubscriptionPlan: {
+  FREE: 'FREE'
+};
+
+export type SubscriptionPlan = (typeof SubscriptionPlan)[keyof typeof SubscriptionPlan]
 
 
 /**
@@ -2893,7 +2906,7 @@ export namespace Prisma {
     email: string | null
     emailVerified: Date | null
     image: string | null
-    role: string | null
+    subscriptionPlan: SubscriptionPlan | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2904,7 +2917,7 @@ export namespace Prisma {
     email: string | null
     emailVerified: Date | null
     image: string | null
-    role: string | null
+    subscriptionPlan: SubscriptionPlan | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2915,7 +2928,7 @@ export namespace Prisma {
     email: number
     emailVerified: number
     image: number
-    role: number
+    subscriptionPlan: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2928,7 +2941,7 @@ export namespace Prisma {
     email?: true
     emailVerified?: true
     image?: true
-    role?: true
+    subscriptionPlan?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2939,7 +2952,7 @@ export namespace Prisma {
     email?: true
     emailVerified?: true
     image?: true
-    role?: true
+    subscriptionPlan?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2950,7 +2963,7 @@ export namespace Prisma {
     email?: true
     emailVerified?: true
     image?: true
-    role?: true
+    subscriptionPlan?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3031,11 +3044,11 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: string
-    name: string | null
+    name: string
     email: string | null
     emailVerified: Date | null
     image: string | null
-    role: string
+    subscriptionPlan: SubscriptionPlan
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -3063,7 +3076,7 @@ export namespace Prisma {
     email?: boolean
     emailVerified?: boolean
     image?: boolean
-    role?: boolean
+    subscriptionPlan?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     accounts?: boolean | User$accountsArgs
@@ -5803,7 +5816,7 @@ export namespace Prisma {
     email: 'email',
     emailVerified: 'emailVerified',
     image: 'image',
-    role: 'role',
+    subscriptionPlan: 'subscriptionPlan',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -5952,11 +5965,11 @@ export namespace Prisma {
     OR?: Enumerable<UserWhereInput>
     NOT?: Enumerable<UserWhereInput>
     id?: StringFilter | string
-    name?: StringNullableFilter | string | null
+    name?: StringFilter | string
     email?: StringNullableFilter | string | null
     emailVerified?: DateTimeNullableFilter | Date | string | null
     image?: StringNullableFilter | string | null
-    role?: StringFilter | string
+    subscriptionPlan?: EnumSubscriptionPlanFilter | SubscriptionPlan
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     accounts?: AccountListRelationFilter
@@ -5970,7 +5983,7 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     image?: SortOrder
-    role?: SortOrder
+    subscriptionPlan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     accounts?: AccountOrderByRelationAggregateInput
@@ -5989,7 +6002,7 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     image?: SortOrder
-    role?: SortOrder
+    subscriptionPlan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -6002,11 +6015,11 @@ export namespace Prisma {
     OR?: Enumerable<UserScalarWhereWithAggregatesInput>
     NOT?: Enumerable<UserScalarWhereWithAggregatesInput>
     id?: StringWithAggregatesFilter | string
-    name?: StringNullableWithAggregatesFilter | string | null
+    name?: StringWithAggregatesFilter | string
     email?: StringNullableWithAggregatesFilter | string | null
     emailVerified?: DateTimeNullableWithAggregatesFilter | Date | string | null
     image?: StringNullableWithAggregatesFilter | string | null
-    role?: StringWithAggregatesFilter | string
+    subscriptionPlan?: EnumSubscriptionPlanWithAggregatesFilter | SubscriptionPlan
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -6258,11 +6271,11 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     id?: string
-    name?: string | null
+    name: string
     email?: string | null
     emailVerified?: Date | string | null
     image?: string | null
-    role?: string
+    subscriptionPlan?: SubscriptionPlan
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -6272,11 +6285,11 @@ export namespace Prisma {
 
   export type UserUncheckedCreateInput = {
     id?: string
-    name?: string | null
+    name: string
     email?: string | null
     emailVerified?: Date | string | null
     image?: string | null
-    role?: string
+    subscriptionPlan?: SubscriptionPlan
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -6286,11 +6299,11 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: EnumSubscriptionPlanFieldUpdateOperationsInput | SubscriptionPlan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -6300,11 +6313,11 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: EnumSubscriptionPlanFieldUpdateOperationsInput | SubscriptionPlan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -6314,33 +6327,33 @@ export namespace Prisma {
 
   export type UserCreateManyInput = {
     id?: string
-    name?: string | null
+    name: string
     email?: string | null
     emailVerified?: Date | string | null
     image?: string | null
-    role?: string
+    subscriptionPlan?: SubscriptionPlan
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: EnumSubscriptionPlanFieldUpdateOperationsInput | SubscriptionPlan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: EnumSubscriptionPlanFieldUpdateOperationsInput | SubscriptionPlan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6669,6 +6682,13 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter | Date | string | null
   }
 
+  export type EnumSubscriptionPlanFilter = {
+    equals?: SubscriptionPlan
+    in?: Enumerable<SubscriptionPlan>
+    notIn?: Enumerable<SubscriptionPlan>
+    not?: NestedEnumSubscriptionPlanFilter | SubscriptionPlan
+  }
+
   export type AccountListRelationFilter = {
     every?: AccountWhereInput
     some?: AccountWhereInput
@@ -6705,7 +6725,7 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     image?: SortOrder
-    role?: SortOrder
+    subscriptionPlan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6716,7 +6736,7 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     image?: SortOrder
-    role?: SortOrder
+    subscriptionPlan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6727,7 +6747,7 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     image?: SortOrder
-    role?: SortOrder
+    subscriptionPlan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6744,6 +6764,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter
     _min?: NestedDateTimeNullableFilter
     _max?: NestedDateTimeNullableFilter
+  }
+
+  export type EnumSubscriptionPlanWithAggregatesFilter = {
+    equals?: SubscriptionPlan
+    in?: Enumerable<SubscriptionPlan>
+    notIn?: Enumerable<SubscriptionPlan>
+    not?: NestedEnumSubscriptionPlanWithAggregatesFilter | SubscriptionPlan
+    _count?: NestedIntFilter
+    _min?: NestedEnumSubscriptionPlanFilter
+    _max?: NestedEnumSubscriptionPlanFilter
   }
 
   export type VerificationTokenIdentifierTokenCompoundUniqueInput = {
@@ -6904,6 +6934,10 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type EnumSubscriptionPlanFieldUpdateOperationsInput = {
+    set?: SubscriptionPlan
   }
 
   export type AccountUpdateManyWithoutUserNestedInput = {
@@ -7155,6 +7189,13 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter | Date | string | null
   }
 
+  export type NestedEnumSubscriptionPlanFilter = {
+    equals?: SubscriptionPlan
+    in?: Enumerable<SubscriptionPlan>
+    notIn?: Enumerable<SubscriptionPlan>
+    not?: NestedEnumSubscriptionPlanFilter | SubscriptionPlan
+  }
+
   export type NestedDateTimeNullableWithAggregatesFilter = {
     equals?: Date | string | null
     in?: Enumerable<Date> | Enumerable<string> | null
@@ -7167,6 +7208,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter
     _min?: NestedDateTimeNullableFilter
     _max?: NestedDateTimeNullableFilter
+  }
+
+  export type NestedEnumSubscriptionPlanWithAggregatesFilter = {
+    equals?: SubscriptionPlan
+    in?: Enumerable<SubscriptionPlan>
+    notIn?: Enumerable<SubscriptionPlan>
+    not?: NestedEnumSubscriptionPlanWithAggregatesFilter | SubscriptionPlan
+    _count?: NestedIntFilter
+    _min?: NestedEnumSubscriptionPlanFilter
+    _max?: NestedEnumSubscriptionPlanFilter
   }
 
   export type NestedBoolFilter = {
@@ -7184,11 +7235,11 @@ export namespace Prisma {
 
   export type UserCreateWithoutAccountsInput = {
     id?: string
-    name?: string | null
+    name: string
     email?: string | null
     emailVerified?: Date | string | null
     image?: string | null
-    role?: string
+    subscriptionPlan?: SubscriptionPlan
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -7197,11 +7248,11 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutAccountsInput = {
     id?: string
-    name?: string | null
+    name: string
     email?: string | null
     emailVerified?: Date | string | null
     image?: string | null
-    role?: string
+    subscriptionPlan?: SubscriptionPlan
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -7220,11 +7271,11 @@ export namespace Prisma {
 
   export type UserUpdateWithoutAccountsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: EnumSubscriptionPlanFieldUpdateOperationsInput | SubscriptionPlan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -7233,11 +7284,11 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: EnumSubscriptionPlanFieldUpdateOperationsInput | SubscriptionPlan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -7246,11 +7297,11 @@ export namespace Prisma {
 
   export type UserCreateWithoutSessionsInput = {
     id?: string
-    name?: string | null
+    name: string
     email?: string | null
     emailVerified?: Date | string | null
     image?: string | null
-    role?: string
+    subscriptionPlan?: SubscriptionPlan
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -7259,11 +7310,11 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutSessionsInput = {
     id?: string
-    name?: string | null
+    name: string
     email?: string | null
     emailVerified?: Date | string | null
     image?: string | null
-    role?: string
+    subscriptionPlan?: SubscriptionPlan
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -7282,11 +7333,11 @@ export namespace Prisma {
 
   export type UserUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: EnumSubscriptionPlanFieldUpdateOperationsInput | SubscriptionPlan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -7295,11 +7346,11 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: EnumSubscriptionPlanFieldUpdateOperationsInput | SubscriptionPlan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -7485,11 +7536,11 @@ export namespace Prisma {
 
   export type UserCreateWithoutTodosInput = {
     id?: string
-    name?: string | null
+    name: string
     email?: string | null
     emailVerified?: Date | string | null
     image?: string | null
-    role?: string
+    subscriptionPlan?: SubscriptionPlan
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -7498,11 +7549,11 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutTodosInput = {
     id?: string
-    name?: string | null
+    name: string
     email?: string | null
     emailVerified?: Date | string | null
     image?: string | null
-    role?: string
+    subscriptionPlan?: SubscriptionPlan
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -7521,11 +7572,11 @@ export namespace Prisma {
 
   export type UserUpdateWithoutTodosInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: EnumSubscriptionPlanFieldUpdateOperationsInput | SubscriptionPlan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -7534,11 +7585,11 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutTodosInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: EnumSubscriptionPlanFieldUpdateOperationsInput | SubscriptionPlan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
