@@ -6,13 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:generate": "prisma generate",
-    "db:migrate": "zenstack generate",
     "db:push": "prisma db push",
     "prisma-studio": "prisma studio"
   },
   "devDependencies": {
     "@pothos/plugin-prisma": "^3.47.0",
-    "prisma": "^4.11.0"
+    "prisma": "^4.11.0",
+    "@packages/env": "*"
   },
   "dependencies": {
     "@prisma/client": "^4.11.0"

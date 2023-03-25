@@ -18,6 +18,7 @@
     "@next/font": "13.1.6",
     "@packages/db": "^0.1.0",
     "@packages/sample-package": "*",
+    "@packages/env": "*",
     "@packages/utils": "*",
     "@pothos/core": "^3.29.0",
     "@pothos/plugin-errors": "^3.11.0",

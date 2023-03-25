@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 type Env<T extends readonly string[]> = {
   [key in T[number]]: string
 }
@@ -19,7 +22,9 @@ export const generateEnv = <T extends readonly string[]>(
 
   if (noValueKeys.length > 0) {
     throw new Error(
-      `Following environment variables are not defined: ${noValueKeys.toString()}`
+      `Following environment variables are not defined: ${noValueKeys.join(
+        ', '
+      )}`
     )
   }
   return env as Env<T>
