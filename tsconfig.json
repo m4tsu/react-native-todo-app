@@ -20,11 +20,8 @@
     "jsx": "preserve",
     "incremental": true,
     "plugins": [],
-    "composite": true, // for monorepom
-    "paths": {
-      "sample-package/*": ["./packages/sample-package/*"]
-    }
+    "composite": true // for monorepom
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "packages/db/tsconfig.json"],
   "exclude": ["node_modules"]
 }

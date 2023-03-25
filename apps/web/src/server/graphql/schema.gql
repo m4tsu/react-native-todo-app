@@ -1,0 +1,29 @@
+"""
+A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+type Mutation {
+  createUser(name: String!): User!
+}
+
+type Query {
+  users: [User!]!
+}
+
+type Todo {
+  createdAt: Date!
+  description: String!
+  id: ID!
+  published: Boolean!
+  title: String!
+  updatedAt: Date!
+  user: User!
+}
+
+type User {
+  id: ID!
+  name: String
+  role: String!
+  todos: [Todo!]!
+}

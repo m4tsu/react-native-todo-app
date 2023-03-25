@@ -1,5 +1,5 @@
 {
-  "name": "sample-package",
+  "name": "@packages/sample-package",
   "version": "0.1.0",
   "description": "",
   "main": "index.ts",
@@ -13,6 +13,5 @@
     "lint-fix": "run-s -c lint-fix:*",
     "lint-fix:eslint": "eslint ./**/*.{ts,tsx,js,jsx,json,md} --fix",
     "lint-fix:prettier": "prettier --write ./**/*.{ts,tsx,js,jsx,json,md}"
-  },
-  "author": ""
+  }
 }

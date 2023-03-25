@@ -1,17 +1,15 @@
 // import { Inter } from '@next/font/google'
+'use client'
 import Image from 'next/image'
-import { greeting } from 'sample-package/greeting'
 
 import styles from './page.module.css'
 
 // Error [NextFontError]: Failed to fetch `Inter` from Google Fonts.
 // const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
   return (
     <main className={styles.main}>
-      {greeting('hoge')}
-      <div className={styles.description}>
+      <div>
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>src/app/page.tsx</code>
@@ -48,45 +46,24 @@ export default function Home() {
           <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
         </div>
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+      <div>
+        <button
+          style={{ border: '1px solid black', padding: 10, fontSize: 24 }}
+          onClick={async () => {
+            // const result = await findMany()
+            // console.log({ result })
+          }}
         >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+          getUsers
+        </button>
+        <button
+          style={{ border: '1px solid black', padding: 10, fontSize: 24 }}
+          onClick={async () => {
+            console.log('')
+          }}
         >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+          SignIN
+        </button>
       </div>
     </main>
   )

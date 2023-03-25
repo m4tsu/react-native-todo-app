@@ -1,0 +1,24 @@
+version: '3'
+services:
+  ## なんか動かないから一旦ローカルでやる
+  # workspace:
+  #   image: 'mcr.microsoft.com/devcontainers/typescript-node:0-16'
+  #   extra_hosts:
+  #     - host.docker.internal:host-gateway # ホストマシンの localhost へアクセスしたい時用
+  #   tty: true
+  #   volumes:
+  #     - .:/workspace:cached
+  #     - :/workspace/node_modules
+  db:
+    image: postgres:14
+    ports:
+      - '5433:5432'
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+volumes:
+  db_data:
+

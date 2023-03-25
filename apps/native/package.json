@@ -16,11 +16,12 @@
     "lint-fix:prettier": "prettier --write src/**/*.{ts,tsx,js,jsx,json,md}"
   },
   "dependencies": {
-    "expo": "~48.0.6",
-    "expo-status-bar": "~1.4.4",
+    "@auth/core": "^0.5.1",
+    "@packages/sample-package": "*",
+    "expo": "^48.0.9",
+    "expo-status-bar": "^1.4.4",
     "react": "18.2.0",
-    "react-native": "0.71.3",
-    "sample-package": "*"
+    "react-native": "^0.71.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

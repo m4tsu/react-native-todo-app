@@ -1,9 +1,8 @@
+import { greeting } from '@packages/sample-package/greeting'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
-import { greeting } from 'sample-package/greeting'
 
 import { Sample } from './components/Sample'
-
 export default function App() {
   return (
     <View style={styles.container}>
